@@ -1,73 +1,92 @@
-/*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+/* ============================================================
+   Australian Open  Global Styles
+   AEM Edge Delivery Services
+   ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap');
+
+/* ---- CSS Custom Properties -------------------------------- */
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* Brand colours */
+  --ao-navy:         #0a1628;
+  --ao-navy-mid:     #0d2137;
+  --ao-navy-dark:    #041022;
+  --ao-blue:         #006fba;
+  --ao-blue-light:   #00a9e0;
+  --ao-blue-bright:  #00c8e6;
+  --ao-border:       #1a3050;
+  --ao-text-muted:   #b0bec5;
+  --ao-text-dim:     #7a9ab5;
+  --ao-white:        #ffffff;
+  --ao-gold:         #f5a623;
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
+  /* AEM EDS token overrides */
+  --background-color:   #0a1628;
+  --light-color:        #0d2137;
+  --dark-color:         #041022;
+  --text-color:         #ffffff;
+  --link-color:         #00a9e0;
+  --link-hover-color:   #006fba;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  /* Typography */
+  --body-font-family:    'Open Sans', open-sans-fallback, sans-serif;
+  --heading-font-family: 'Montserrat', montserrat-fallback, sans-serif;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  /* Font sizes */
+  --body-font-size-m:  16px;
+  --body-font-size-s:  14px;
+  --body-font-size-xs: 12px;
 
-  /* nav height */
-  --nav-height: 64px;
-}
+  --heading-font-size-xxl: 52px;
+  --heading-font-size-xl:  40px;
+  --heading-font-size-l:   28px;
+  --heading-font-size-m:   22px;
+  --heading-font-size-s:   18px;
+  --heading-font-size-xs:  15px;
 
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
+  /* Layout */
+  --nav-height:     72px;
+  --max-width:      1280px;
+  --section-gutter: 24px;
 }
 
 @media (width >= 900px) {
   :root {
-    /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+    --body-font-size-m:  16px;
+    --body-font-size-s:  14px;
+    --body-font-size-xs: 12px;
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-xxl: 48px;
+    --heading-font-size-xl:  36px;
+    --heading-font-size-l:   26px;
+    --heading-font-size-m:   20px;
+    --heading-font-size-s:   17px;
+    --heading-font-size-xs:  14px;
+
+    --section-gutter: 40px;
   }
+}
+
+/* ---- Fallback fonts --------------------------------------- */
+@font-face {
+  font-family: montserrat-fallback;
+  size-adjust: 105%;
+  src: local('Arial');
+}
+
+@font-face {
+  font-family: open-sans-fallback;
+  size-adjust: 100%;
+  src: local('Arial');
+}
+
+/* ---- Base Reset ------------------------------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -78,12 +97,14 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.appear {
   display: block;
 }
 
+/* ---- Header placeholder ---------------------------------- */
 header {
   height: var(--nav-height);
 }
@@ -98,66 +119,50 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 0.8em;
+/* ---- Typography ------------------------------------------ */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0.75em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ao-white);
   scroll-margin: 40px;
 }
 
-h1 { font-size: var(--heading-font-size-xxl); }
-h2 { font-size: var(--heading-font-size-xl); }
-h3 { font-size: var(--heading-font-size-l); }
+h1 { font-size: var(--heading-font-size-xxl); font-weight: 900; }
+h2 { font-size: var(--heading-font-size-xl); font-weight: 800; }
+h3 { font-size: var(--heading-font-size-l); font-weight: 700; }
 h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
-p,
-dl,
-ol,
-ul,
-pre,
-blockquote {
-  margin-top: 0.8em;
+p, dl, ol, ul, pre, blockquote {
+  margin-top: 0.75em;
   margin-bottom: 0.25em;
 }
 
-code,
-pre {
+p { color: var(--ao-text-muted); }
+
+code, pre {
   font-size: var(--body-font-size-s);
 }
 
 pre {
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 6px;
   background-color: var(--light-color);
   overflow-x: auto;
   white-space: pre;
 }
 
-main > div {
-  margin: 40px 16px;
-}
-
-input,
-textarea,
-select,
-button {
-  font: inherit;
-}
-
-/* links */
+/* ---- Links ----------------------------------------------- */
 a:any-link {
   color: var(--link-color);
   text-decoration: none;
   overflow-wrap: break-word;
+  transition: color 0.2s ease;
 }
 
 a:hover {
@@ -165,51 +170,68 @@ a:hover {
   text-decoration: underline;
 }
 
-/* buttons */
+/* ---- Buttons --------------------------------------------- */
 a.button:any-link,
 button {
   box-sizing: border-box;
   display: inline-block;
   max-width: 100%;
-  margin: 12px 0;
+  margin: 8px 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font-family: var(--body-font-family);
+  border-radius: 4px;
+  padding: 12px 28px;
+  font-family: var(--heading-font-family);
+  font-size: 13px;
   font-style: normal;
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  background-color: var(--link-color);
-  color: var(--background-color);
+  text-transform: uppercase;
+  background-color: var(--ao-blue);
+  color: var(--ao-white);
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: var(--link-hover-color);
-  cursor: pointer;
+  background-color: var(--ao-blue-light);
+  box-shadow: 0 4px 16px rgba(0, 111, 186, 0.4);
+  transform: translateY(-1px);
+  color: var(--ao-white);
+  text-decoration: none;
 }
 
 button:disabled,
 button:disabled:hover {
   background-color: var(--light-color);
-  cursor: unset;
+  color: var(--ao-text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 a.button.secondary,
 button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color);
+  background-color: transparent;
+  border: 2px solid var(--ao-blue-light);
+  color: var(--ao-blue-light);
 }
 
+a.button.secondary:hover,
+button.secondary:hover {
+  background-color: var(--ao-blue-light);
+  color: var(--ao-white);
+}
+
+/* ---- Images ---------------------------------------------- */
 main img {
   max-width: 100%;
   width: auto;
@@ -227,31 +249,64 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* ---- Sections -------------------------------------------- */
 main > .section {
-  margin: 40px 0;
-}
-
-main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
+  margin: 0;
+  padding: 48px 0;
 }
 
 main > .section:first-of-type {
+  padding-top: 0;
   margin-top: 0;
+}
+
+main > .section > div {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-gutter);
 }
 
 @media (width >= 900px) {
   main > .section > div {
-    padding: 0 32px;
+    padding: 0 40px;
   }
 }
 
-/* section metadata */
-main .section.light,
-main .section.highlight {
+main > .section.light,
+main > .section.highlight {
   background-color: var(--light-color);
   margin: 0;
-  padding: 40px 0;
+  padding: 48px 0;
+}
+
+/* Full-width sections (carousel, hero) */
+main > .section.carousel-container {
+  padding: 0;
+  margin: 0;
+}
+
+/* Alternating section backgrounds */
+main > .section.cards-container {
+  background-color: var(--ao-navy);
+  padding: 48px 0;
+}
+
+main > .section.cards-container:nth-of-type(even) {
+  background-color: var(--ao-navy-mid);
+}
+
+main > .section.promo-container {
+  padding: 0;
+}
+
+/* Input elements */
+input, textarea, select, button {
+  font: inherit;
+}
+
+/* ---- Dividers -------------------------------------------- */
+hr {
+  border: none;
+  border-top: 1px solid var(--ao-border);
+  margin: 32px 0;
 }
