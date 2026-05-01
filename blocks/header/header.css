@@ -507,3 +507,22 @@ header .nav-sections a.button:hover {
   box-shadow: none;
   transform: none;
 }
+
+/* ---- AO Logo via CSS background (DA strips inline SVG) --- */
+/* Replace the "Australian Open" text link with the AO logo SVG */
+header .nav-brand .default-content-wrapper > p:first-child > a:any-link {
+  display: block !important;
+  width: 56px !important;
+  height: 28px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 44'%3E%3Cpath fill='%23006fba' d='M65.4 31.1c-5.2 0-9.4-4.2-9.4-9.5 0-5.2 4.2-9.5 9.4-9.5s9.4 4.2 9.4 9.5-4.2 9.5-9.4 9.5M65.5 0C53.6 0 44 9.7 44 21.7s9.6 21.7 21.5 21.7S87 33.7 87 21.7C86.9 9.7 77.3 0 65.5 0'/%3E%3Cpath fill='%23006fba' d='M25 1h-6.9L0 42.5h13.4L21.6 21l8.1 21.5h13.4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center left;
+  text-indent: -9999px;
+  overflow: hidden;
+  font-size: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  color: transparent !important;
+  line-height: 28px !important;
+}
