@@ -1,20 +1,239 @@
+/* ============================================================
+   Australian Open  Footer Block
+   AEM Edge Delivery Services
+   ============================================================ */
+
 footer {
-  background-color: var(--light-color);
+  background-color: var(--ao-navy-dark);
+  color: var(--ao-text-muted);
   font-size: var(--body-font-size-xs);
+  font-family: var(--body-font-family);
+  border-top: 1px solid var(--ao-border);
+}
+
+footer .footer {
+  background-color: var(--ao-navy-dark);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
-}
-
-footer .footer p {
-  margin: 0;
+  max-width: var(--max-width);
+  padding: 48px 24px 32px;
 }
 
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 56px 40px 32px;
   }
+}
+
+footer .footer p {
+  margin: 0 0 6px;
+}
+
+/* ---- Partners heading ------------------------------------ */
+.partners > div:first-child h2 {
+  margin: 0 0 24px;
+  font-family: var(--heading-font-family);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ao-text-dim);
+}
+
+/* ---- Partner logos row ----------------------------------- */
+.partners > div:nth-child(2) > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--ao-border);
+  margin-bottom: 24px;
+}
+
+.partners > div:nth-child(2) > div a {
+  display: block;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.partners > div:nth-child(2) > div a:hover {
+  opacity: 1;
+}
+
+.partners > div:nth-child(2) > div img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* "View all" link */
+.partners > div:nth-child(2) > div a:last-child {
+  font-family: var(--heading-font-family);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ao-blue-light);
+  text-decoration: none;
+  border: 1.5px solid var(--ao-blue-light);
+  padding: 6px 16px;
+  border-radius: 4px;
+  opacity: 1;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.partners > div:nth-child(2) > div a:last-child:hover {
+  background-color: var(--ao-blue-light);
+  color: var(--ao-white);
+  opacity: 1;
+}
+
+/* ---- Organisation logos (AO, Tennis Australia, Visit Melb) */
+.partners > div:nth-child(3) > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--ao-border);
+  margin-bottom: 32px;
+}
+
+.partners > div:nth-child(3) > div a {
+  display: block;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.partners > div:nth-child(3) > div a:hover {
+  opacity: 1;
+}
+
+.partners > div:nth-child(3) > div img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* ---- Footer links block ---------------------------------- */
+.footer-links > div:first-child > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (width >= 600px) {
+  .footer-links > div:first-child > div {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (width >= 900px) {
+  .footer-links > div:first-child > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+.footer-links ul {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links ul li a {
+  color: var(--ao-text-muted);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.footer-links ul li a:hover {
+  color: var(--ao-white);
+  text-decoration: none;
+}
+
+/* ---- Social icons ---------------------------------------- */
+.footer-links > div:nth-child(2) > div {
+  padding: 24px 0;
+  border-top: 1px solid var(--ao-border);
+}
+
+.footer-links > div:nth-child(2) ul {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links > div:nth-child(2) ul li {
+  margin: 0;
+}
+
+.footer-links > div:nth-child(2) ul li a {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ao-text-muted);
+  border-right: 1px solid var(--ao-border);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--heading-font-family);
+}
+
+.footer-links > div:nth-child(2) ul li:first-child a {
+  padding-left: 0;
+}
+
+.footer-links > div:nth-child(2) ul li:last-child a {
+  border-right: none;
+}
+
+.footer-links > div:nth-child(2) ul li a:hover {
+  color: var(--ao-blue-light);
+}
+
+/* ---- Legal / copyright ----------------------------------- */
+.footer-links > div:nth-child(3) > div {
+  padding: 24px 0 0;
+  border-top: 1px solid var(--ao-border);
+}
+
+.footer-links > div:nth-child(3) p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ao-text-dim);
+  margin: 0 0 8px;
+}
+
+/* ---- Default footer content (boilerplate) ---------------- */
+footer .default-content-wrapper {
+  padding: 32px 0 16px;
+  border-top: 1px solid var(--ao-border);
+}
+
+footer .default-content-wrapper p {
+  font-size: 12px;
+  color: var(--ao-text-dim);
+  margin: 0 0 8px;
+}
+
+footer .default-content-wrapper a {
+  color: var(--ao-text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+footer .default-content-wrapper a:hover {
+  color: var(--ao-blue-light);
 }
