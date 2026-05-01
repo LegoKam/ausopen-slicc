@@ -1,19 +1,28 @@
 /* ============================================================
-   Australian Open  Nav / Header Block
+   Australian Open  Header / Nav Block
    AEM Edge Delivery Services
-   Targets the EDS header block populated by header.js from /nav
+   White bar matching ausopen.com reference design
    ============================================================ */
 
-/* ---- Hide the duplicate nav block in main ---------------- */
-/* The .nav block in .section.nav-container is a fallback;
-   the real nav is rendered by the header block from /nav */
+/* ---- Hide the duplicate nav block in main (if present) --- */
 main .section.nav-container {
   display: none !important;
 }
 
-/* ---- Header wrapper (sticky bar) ------------------------- */
+/* ---- CSS vars for this component ------------------------- */
+:root {
+  --nav-height: 80px;
+  --nav-bg: #ffffff;
+  --nav-border: #e8e8e8;
+  --nav-link-color: #333333;
+  --nav-link-hover: #006fba;
+  --ao-blue: #006fba;
+  --ao-blue-dark: #005a96;
+}
+
+/* ---- Header placeholder ---------------------------------- */
 header {
-  height: var(--nav-height, 64px);
+  height: var(--nav-height);
 }
 
 header .header,
@@ -21,61 +30,55 @@ header .header[data-block-status="loaded"] {
   visibility: visible;
 }
 
+/* ---- Nav wrapper  white sticky bar ---------------------- */
 header .nav-wrapper {
-  background-color: #041022;
+  background-color: #ffffff;
   width: 100%;
   z-index: 100;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  border-bottom: 1px solid #1a3050;
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* ---- Nav grid -------------------------------------------- */
+/* ---- Nav grid  brand | sections | tools ----------------- */
 header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' 64px
+    'hamburger brand tools' 80px
     'sections sections sections' 1fr
     / auto 1fr auto;
   align-items: center;
-  gap: 0 24px;
+  gap: 0 20px;
   margin: 0 auto;
   max-width: 1280px;
-  height: 64px;
+  height: 80px;
   padding: 0 24px;
-  font-family: 'Montserrat', 'Open Sans', sans-serif;
-  color: #ffffff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #333333;
 }
 
 header nav[aria-expanded="true"] {
   grid-template:
-    'hamburger brand' 64px
+    'hamburger brand' 80px
     'sections sections' 1fr
     'tools tools' 64px
     / auto 1fr;
   overflow-y: auto;
   min-height: 100dvh;
-  background-color: #041022;
+  background-color: #ffffff;
 }
 
 @media (width >= 900px) {
-  header .nav-wrapper {
-    position: sticky;
-    top: 0;
-  }
-
   header nav {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 0 32px;
-    padding: 0 40px;
-    height: 64px;
+    gap: 0;
+    padding: 0 32px;
+    height: 80px;
   }
 
   header nav[aria-expanded="true"] {
@@ -90,12 +93,10 @@ header nav p {
 }
 
 header nav a:any-link {
-  color: #ffffff;
   text-decoration: none;
-  transition: color 0.15s ease;
 }
 
-/* ---- Hamburger (mobile) ---------------------------------- */
+/* ---- Hamburger (mobile only) ----------------------------- */
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
@@ -110,7 +111,7 @@ header nav .nav-hamburger button {
   border-radius: 0;
   padding: 0;
   background-color: transparent;
-  color: #ffffff;
+  color: #333333;
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
@@ -119,10 +120,12 @@ header nav .nav-hamburger button {
   transform: none;
 }
 
-header nav .nav-hamburger button:hover {
+header nav .nav-hamburger button:hover,
+header nav .nav-hamburger button:focus {
   background-color: transparent;
   box-shadow: none;
   transform: none;
+  color: #006fba;
 }
 
 header nav .nav-hamburger-icon,
@@ -138,7 +141,7 @@ header nav .nav-hamburger-icon::before,
 header nav .nav-hamburger-icon::after {
   content: '';
   position: absolute;
-  background: #ffffff;
+  background: currentcolor;
 }
 
 header nav[aria-expanded="false"] .nav-hamburger-icon,
@@ -146,15 +149,13 @@ header nav[aria-expanded="false"] .nav-hamburger-icon::before,
 header nav[aria-expanded="false"] .nav-hamburger-icon::after {
   height: 2px;
   border-radius: 2px;
-  background: #ffffff;
+  background: #333333;
 }
 
 header nav[aria-expanded="false"] .nav-hamburger-icon::before { top: -7px; }
 header nav[aria-expanded="false"] .nav-hamburger-icon::after  { top: 7px; }
 
-header nav[aria-expanded="true"] .nav-hamburger-icon {
-  height: 22px;
-}
+header nav[aria-expanded="true"] .nav-hamburger-icon { height: 22px; }
 
 header nav[aria-expanded="true"] .nav-hamburger-icon::before,
 header nav[aria-expanded="true"] .nav-hamburger-icon::after {
@@ -165,6 +166,7 @@ header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   width: 24px;
   height: 2px;
   border-radius: 2px;
+  background: #333333;
 }
 
 header nav[aria-expanded="true"] .nav-hamburger-icon::after {
@@ -180,50 +182,72 @@ header nav[aria-expanded="true"] .nav-hamburger-icon::after {
   }
 }
 
-/* ---- Brand / Logo ---------------------------------------- */
+/* ---- Brand  logo + date --------------------------------- */
 header .nav-brand {
   grid-area: brand;
   flex: 0 0 auto;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 15px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding-right: 8px;
 }
 
-/* nav-brand is a section div  target its inner link */
-header .nav-brand a:any-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-/* AO blue accent for the pipe separator */
-header .nav-brand a::after {
-  content: '';
+/* Remove any button styling on the brand link */
+header .nav-brand a:any-link,
+header .nav-brand a.button:any-link {
   display: inline-block;
-  width: 2px;
-  height: 16px;
-  background-color: #006fba;
-  margin: 0 2px;
-  vertical-align: middle;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  color: #006fba !important;
+  text-decoration: none !important;
+  line-height: 0;
 }
 
 header .nav-brand a:hover {
-  color: #00a9e0;
-  text-decoration: none;
+  background-color: transparent !important;
+  opacity: 0.85;
+  transform: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
 }
 
-/* ---- Nav sections (links) -------------------------------- */
+/* SVG logo */
+header .nav-brand svg,
+header .nav-brand img {
+  width: 52px;
+  height: auto;
+  display: block;
+  fill: #006fba;
+}
+
+/* Date text  shown as a p element after the logo link */
+header .nav-brand .default-content-wrapper > p:last-child,
+header .nav-brand > .default-content-wrapper > p + p {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: #006fba;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+  padding: 0;
+}
+
+/* First p in brand is the logo link */
+header .nav-brand .default-content-wrapper > p:first-child {
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Nav sections  centered horizontal links ------------ */
 header .nav-sections {
   grid-area: sections;
   flex: 1 1 auto;
@@ -235,65 +259,72 @@ header nav[aria-expanded="true"] .nav-sections {
   display: block;
   visibility: visible;
   align-self: start;
-  padding: 16px 0;
-  border-top: 1px solid #1a3050;
+  border-top: 1px solid #e8e8e8;
+  padding: 8px 0;
 }
 
-/* List reset */
+/* Mobile link styles */
 header .nav-sections ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Mobile: vertical stack */
 header .nav-sections ul li {
-  border-bottom: 1px solid #1a3050;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 header .nav-sections ul li a:any-link {
   display: block;
-  padding: 13px 20px;
-  color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
+  padding: 12px 20px;
+  color: #333333;
+  font-family: 'Montserrat', Arial, sans-serif;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.07em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: color 0.15s ease, background-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 header .nav-sections ul li a:hover {
-  color: #00a9e0;
-  background-color: rgba(0, 169, 224, 0.08);
+  color: #006fba;
   text-decoration: none;
 }
 
 /* Desktop: horizontal flex row */
 @media (width >= 900px) {
   header .nav-sections {
-    display: block;
+    display: flex;
     visibility: visible;
     flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    border-top: none;
+    padding: 0;
     overflow: hidden;
   }
 
   header nav[aria-expanded="true"] .nav-sections {
     align-self: unset;
-    padding: 0;
     border-top: none;
+    padding: 0;
+  }
+
+  header .nav-sections .default-content-wrapper {
+    display: flex;
+    align-items: center;
   }
 
   header .nav-sections .default-content-wrapper > ul {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
     align-items: center;
+    flex-wrap: nowrap;
     gap: 0;
     margin: 0;
     padding: 0;
     list-style: none;
-    height: 64px;
+    height: 80px;
   }
 
   header .nav-sections .default-content-wrapper > ul > li {
@@ -306,13 +337,13 @@ header .nav-sections ul li a:hover {
   header .nav-sections .default-content-wrapper > ul > li > p > a:any-link {
     display: flex;
     align-items: center;
-    height: 64px;
-    padding: 0 10px;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10.5px;
+    height: 80px;
+    padding: 0 16px;
+    color: #333333;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     white-space: nowrap;
     border-bottom: 3px solid transparent;
@@ -323,14 +354,9 @@ header .nav-sections ul li a:hover {
   header .nav-sections .default-content-wrapper > ul > li > p > a:hover,
   header .nav-sections .default-content-wrapper > ul > li[aria-expanded="true"] > a,
   header .nav-sections .default-content-wrapper > ul > li[aria-expanded="true"] > p > a {
-    color: #00a9e0;
-    border-bottom-color: #00a9e0;
+    color: #006fba;
+    border-bottom-color: #006fba;
     text-decoration: none;
-  }
-
-  /* nav-drop arrow */
-  header .nav-sections .nav-drop {
-    cursor: pointer;
   }
 
   /* Dropdown sub-menu */
@@ -340,12 +366,12 @@ header .nav-sections ul li a:hover {
     left: 0;
     top: 100%;
     min-width: 200px;
-    background-color: #041022;
-    border: 1px solid #1a3050;
+    background-color: #ffffff;
+    border: 1px solid #e8e8e8;
     border-top: 2px solid #006fba;
     border-radius: 0 0 6px 6px;
     padding: 8px 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
     z-index: 200;
   }
 
@@ -361,7 +387,7 @@ header .nav-sections ul li a:hover {
     display: block;
     padding: 10px 20px;
     height: auto;
-    color: #b0bec5;
+    color: #555555;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.02em;
@@ -371,89 +397,113 @@ header .nav-sections ul li a:hover {
   }
 
   header .nav-sections .default-content-wrapper > ul > li > ul > li > a:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+    color: #006fba;
+    background-color: #f5f8ff;
     border-bottom: none;
   }
 }
 
-/* ---- Tools (right side  AO Reserve button) -------------- */
+/* ---- Tools  AO Reserve link + sign-in icon -------------- */
 header .nav-tools {
   grid-area: tools;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 0 0 auto;
+  gap: 8px;
 }
 
+/* AO Reserve button  outlined blue, matching ausopen.com */
 header .nav-tools a:any-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: 9px 20px;
-  color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
+  color: #006fba;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: #006fba;
+  background-color: transparent;
   border: 2px solid #006fba;
   border-radius: 4px;
   white-space: nowrap;
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   box-shadow: none;
   transform: none;
 }
 
 header .nav-tools a:hover {
-  background-color: #00a9e0;
-  border-color: #00a9e0;
+  background-color: #006fba;
   color: #ffffff;
   text-decoration: none;
-  box-shadow: 0 4px 16px rgba(0, 169, 224, 0.4);
+  box-shadow: none;
   transform: none;
 }
 
-/* ---- Remove .button class styling on brand link ---------- */
+/* Sign-in link  circular user icon */
+header .nav-tools a:last-child:any-link {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid #cccccc;
+  background-color: transparent;
+  color: #555555;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* User icon SVG via background */
+header .nav-tools a:last-child::before {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555555'%3E%3Cpath d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+header .nav-tools a:last-child:hover {
+  border-color: #006fba;
+  background-color: transparent;
+}
+
+header .nav-tools a:last-child:hover::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23006fba'%3E%3Cpath d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+}
+
+/* ---- Prevent button styles on brand/nav links ------------ */
 header .nav-brand .button-container {
   margin: 0;
 }
 
-header .nav-brand a.button,
-header .nav-brand a {
-  background-color: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  color: #ffffff !important;
-  display: inline-block !important;
-  max-width: none !important;
-  white-space: nowrap !important;
+/* Override global button styles that may bleed into nav links */
+header .nav-sections a.button:any-link {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  box-shadow: none;
+  transform: none;
+  max-width: none;
 }
 
-header .nav-brand a.button:hover,
-header .nav-brand a:hover {
-  background-color: transparent !important;
-  color: #00a9e0 !important;
-  text-decoration: none !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-/* ---- Ensure main content is not hidden behind sticky nav - */
-body {
-  padding-top: 0;
-}
-
-main > .section:first-of-type {
-  margin-top: 0;
-  padding-top: 0;
+header .nav-sections a.button:hover {
+  background-color: transparent;
+  color: #006fba;
+  box-shadow: none;
+  transform: none;
 }
