@@ -1,36 +1,31 @@
 /* ============================================================
    Australian Open  Cards Block
    AEM Edge Delivery Services
+   Actual EDS structure:
+     .cards > ul > li:first-child > .cards-card-body   (header)
+     .cards > ul > li:last-child > .cards-card-body*N  (card cells)
    ============================================================ */
 
-/* ---- Section header row (first li  heading + link) ------ */
+/* ---- Reset list ------------------------------------------ */
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
 }
 
-/* First list item acts as a section header  full width */
-.cards > ul > li:first-child:has(.cards-card-body:only-child) {
-  grid-column: 1 / -1;
+/* ---- Section header row (first li) ----------------------- */
+.cards > ul > li:first-child {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  background: none;
-  border: none;
-  border-radius: 0;
-  padding: 0 0 8px;
+  padding: 0 0 16px;
+  margin-bottom: 24px;
   border-bottom: 2px solid var(--ao-border);
-  margin-bottom: 8px;
 }
 
-/* Fallback: if first card has no image and only body */
-.cards > ul > li:first-child .cards-card-body:only-child {
+.cards > ul > li:first-child .cards-card-body {
   width: 100%;
   display: flex;
   align-items: baseline;
@@ -39,9 +34,11 @@
   gap: 12px;
   padding: 0;
   margin: 0;
+  background: none;
+  border: none;
 }
 
-/* Section title h2 inside header row */
+/* Section heading */
 .cards > ul > li:first-child h2 {
   margin: 0;
   font-family: var(--heading-font-family);
@@ -49,9 +46,10 @@
   font-weight: 800;
   color: var(--ao-white);
   letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-/* "See all" / "Read More" link inside header row */
+/* "See all" / header CTA */
 .cards > ul > li:first-child .button-container a,
 .cards > ul > li:first-child a.button {
   display: inline-block;
@@ -78,8 +76,28 @@
   text-decoration: none;
 }
 
-/* ---- Card items ------------------------------------------ */
-.cards > ul > li {
+/* ---- Cards row (second li  all cards as sibling divs) --- */
+.cards > ul > li:last-child {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (width >= 900px) {
+  .cards > ul > li:last-child {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .cards > ul > li:last-child {
+    gap: 24px;
+  }
+}
+
+/* Individual card cell */
+.cards > ul > li:last-child > .cards-card-body {
   background-color: var(--ao-navy-mid);
   border: 1px solid var(--ao-border);
   border-radius: 6px;
@@ -87,21 +105,23 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  margin: 0;
+  padding: 0;
 }
 
-.cards > ul > li:hover {
+.cards > ul > li:last-child > .cards-card-body:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 32px rgba(0, 111, 186, 0.25);
   border-color: var(--ao-blue);
 }
 
-/* ---- Card image ------------------------------------------ */
-.cards .cards-card-image {
+/* ---- Image inside card ------------------------------------ */
+.cards .cards-card-body picture {
+  display: block;
   line-height: 0;
-  flex-shrink: 0;
 }
 
-.cards > ul > li img {
+.cards .cards-card-body img {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -109,119 +129,162 @@
   display: block;
 }
 
-/* Player cards use taller portrait ratio */
-.cards > ul > li .cards-card-image:only-child img,
-.cards > ul > li:has(.cards-card-image:only-child) img {
-  aspect-ratio: 3 / 4;
-  object-position: top center;
+/* Portrait images for player cards */
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sabalenka"]),
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Alcaraz"]),
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sinner"]),
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Swiatek"]),
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Djokovic"]),
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Minaur"]) {
+  background: linear-gradient(180deg, #0d2137 0%, #041022 100%);
 }
 
-/* ---- Card body ------------------------------------------- */
-.cards .cards-card-body {
-  flex: 1;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* For player blocks  make image taller */
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sabalenka"]) img,
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Alcaraz"]) img,
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sinner"]) img,
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Swiatek"]) img,
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Djokovic"]) img,
+.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Minaur"]) img {
+  aspect-ratio: 2 / 3;
 }
 
-/* Category tag (first p in body) */
-.cards .cards-card-body > p:first-child {
+/* ---- Card text content ----------------------------------- */
+/* All p tags after the picture get padding */
+.cards .cards-card-body > p {
   margin: 0;
+  color: var(--ao-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* First p that contains a link and image = image wrapper, no padding */
+.cards .cards-card-body > p:has(a picture),
+.cards .cards-card-body > p:has(a img) {
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+/* Text content wrapper  any p without image */
+.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)),
+.cards .cards-card-body > h3 {
+  padding: 0 14px;
+}
+
+.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)):first-of-type {
+  padding-top: 12px;
+}
+
+.cards .cards-card-body > p:last-child {
+  padding-bottom: 14px;
+  margin-bottom: 0;
+}
+
+/* Category tag */
+.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)):not(:last-child) {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ao-blue-light);
+  padding-top: 12px;
+  padding-bottom: 2px;
 }
 
-/* Heading inside card */
+/* Heading */
 .cards .cards-card-body h3 {
-  margin: 0;
+  margin: 4px 0 8px;
   font-family: var(--heading-font-family);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.35;
   color: var(--ao-white);
   letter-spacing: -0.01em;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
-/* Date / meta */
-.cards .cards-card-body time,
-.cards .cards-card-body p:last-child:not(:first-child) {
-  margin-top: auto;
-  padding-top: 8px;
-  font-size: 12px;
-  color: var(--ao-text-dim);
-}
-
-/* Full-card link wrapping */
-.cards .cards-card-body a,
-.cards .cards-card-image a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-}
-
-.cards .cards-card-body a:hover,
-.cards .cards-card-image a:hover {
-  text-decoration: none;
+/* Hover on heading */
+.cards .cards-card-body:hover h3 {
   color: var(--ao-blue-light);
 }
 
-.cards .cards-card-body a:hover h3 {
-  color: var(--ao-blue-light);
-}
-
-/* Player name under photo */
-.cards .cards-card-image a p,
-.cards .cards-card-image p {
-  margin: 0;
-  padding: 10px 12px;
+/* Player name text */
+.cards .cards-card-body > p:last-child:not(:first-child) {
   font-family: var(--heading-font-family);
   font-size: 13px;
   font-weight: 700;
   color: var(--ao-white);
   text-align: center;
-  background-color: rgba(4, 16, 34, 0.7);
+  padding: 10px 12px;
+  background-color: rgba(4, 16, 34, 0.6);
+  letter-spacing: 0.02em;
 }
 
-/* ---- Video cards (no image  title only) ----------------- */
-.cards > ul > li:has(h3):not(:has(.cards-card-image)) {
-  background: linear-gradient(135deg, var(--ao-navy-mid) 0%, #0b1d35 100%);
+/* Link styling inside cards */
+.cards .cards-card-body a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards .cards-card-body a:hover {
+  text-decoration: none;
+  color: var(--ao-blue-light);
+}
+
+/* Picture link  full width */
+.cards .cards-card-body > p > a {
+  display: block;
+  line-height: 0;
+}
+
+/* ---- Video cards (no image, just title) ------------------ */
+.cards > ul > li:last-child > .cards-card-body:not(:has(img)) {
+  background: linear-gradient(135deg, #0d2137 0%, #0a1a2e 100%);
   border: 1px solid var(--ao-border);
+  padding: 16px;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
-/* Pill category tag for video entries */
-.cards > ul > li:has(h3):not(:has(.cards-card-image)) p:first-child {
-  font-size: 10px;
-  padding: 3px 10px;
-  background-color: var(--ao-blue);
-  border-radius: 20px;
-  display: inline-block;
-  color: white;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  width: fit-content;
+.cards > ul > li:last-child > .cards-card-body:not(:has(img)) h3 {
+  font-size: 13px;
+  padding: 0;
+  margin: 0 0 4px;
+  color: var(--ao-white);
 }
 
-/* ---- Responsive grid ------------------------------------- */
-@media (width >= 600px) {
-  .cards > ul {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+.cards > ul > li:last-child > .cards-card-body:not(:has(img)) p {
+  padding: 0;
+  color: var(--ao-text-dim);
+  font-size: 12px;
 }
 
-@media (width >= 900px) {
-  .cards > ul {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
+.cards > ul > li:last-child > .cards-card-body:not(:has(img)) a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  margin: -16px;
+  height: 100%;
+  color: var(--ao-white);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
 }
 
-@media (width >= 1200px) {
-  .cards > ul {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.cards > ul > li:last-child > .cards-card-body:not(:has(img)) a:hover {
+  background-color: rgba(0, 111, 186, 0.12);
+}
+
+/* Video play indicator */
+.cards > ul > li:last-child > .cards-card-body:not(:has(img))::before {
+  content: '¶';
+  display: block;
+  font-size: 20px;
+  color: var(--ao-blue-light);
+  margin-bottom: 8px;
+  padding: 0;
+  line-height: 1;
 }
