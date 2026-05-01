@@ -458,3 +458,273 @@
   font-family: var(--body-font-family);
   font-weight: 400;
 }
+
+/* ============================================================
+   Your Favourites  horizontal scrollable player carousel
+   .cards.favourites variant
+   ============================================================ */
+
+/* ---- Section wrapper ------------------------------------- */
+.cards.favourites {
+  background-color: #0d2137;
+  padding: 36px 48px 40px;
+  position: relative;
+}
+
+/* Override the default section padding/bg */
+.section.cards-container:has(.cards.favourites) {
+  background-color: #0d2137 !important;
+  padding: 0 !important;
+}
+
+/* ---- Section header row (first li  h2 + All players link) */
+.cards.favourites > ul > li:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0 0 24px;
+  margin-bottom: 0;
+  border-bottom: none;
+  background: none;
+  border: none;
+}
+
+.cards.favourites > ul > li:first-child .cards-card-body {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+.cards.favourites > ul > li:first-child h2 {
+  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.cards.favourites > ul > li:first-child .button-container a,
+.cards.favourites > ul > li:first-child a.button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5a623 !important;
+  text-decoration: underline !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  white-space: nowrap;
+}
+
+.cards.favourites > ul > li:first-child .button-container a:hover,
+.cards.favourites > ul > li:first-child a.button:hover {
+  color: #e09416 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  text-decoration: underline !important;
+}
+
+/* ---- Scrollable player row (second li) ------------------- */
+/* Override the default grid with horizontal scroll */
+.cards.favourites > ul > li:last-child {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 8px 4px 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* Override the default grid-template-columns */
+  grid-template-columns: none !important;
+}
+
+.cards.favourites > ul > li:last-child::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- Individual player card ------------------------------ */
+.cards.favourites > ul > li:last-child > .cards-card-body {
+  flex: 0 0 140px;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  transition: none !important;
+  cursor: pointer;
+}
+
+.cards.favourites > ul > li:last-child > .cards-card-body:hover {
+  transform: translateY(-4px);
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* ---- The player image link ------------------------------- */
+/* The image is wrapped: .cards-card-body > p > a > picture > img */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture),
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  flex-shrink: 0;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture) a,
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) a {
+  display: block !important;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  transition: border-color 0.2s ease;
+  line-height: 0;
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.cards.favourites > ul > li:last-child > .cards-card-body:hover > p:has(a picture) a,
+.cards.favourites > ul > li:last-child > .cards-card-body:hover > p:has(a img) a {
+  border-color: #006fba;
+}
+
+/* ---- Player image ---------------------------------------- */
+.cards.favourites > ul > li:last-child > .cards-card-body img {
+  width: 130px !important;
+  height: 130px !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ---- Star icon  positioned on photo, bottom-right ------- */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture)::after,
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img)::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  right: 0px;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(13, 33, 55, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture):hover::after {
+  background-color: rgba(0, 111, 186, 0.9);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---- Player name text ------------------------------------ */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:not(:has(a picture)):not(:has(a img)) {
+  margin: 10px 0 0 !important;
+  padding: 0 !important;
+  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff !important;
+  text-align: center;
+  line-height: 1.4;
+  width: 100%;
+  background-color: transparent !important;
+}
+
+/* ---- Scroll arrows (decorative, CSS-only) ---------------- */
+.cards.favourites {
+  /* Reserve space for arrows by padding */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* Left arrow */
+.cards.favourites > ul::before {
+  content: '';
+  display: block;
+  position: sticky;
+  left: 0;
+  width: 0;
+  height: 0;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+/* ---- Mobile ------------------------------------------ */
+@media (max-width: 767px) {
+  .cards.favourites {
+    padding: 24px 16px 28px;
+  }
+
+  .cards.favourites > ul > li:last-child {
+    gap: 20px;
+  }
+
+  .cards.favourites > ul > li:last-child > .cards-card-body {
+    flex: 0 0 110px;
+  }
+
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture),
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) {
+    width: 110px;
+    height: 110px;
+  }
+
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture) a,
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) a {
+    width: 110px;
+    height: 110px;
+  }
+
+  .cards.favourites > ul > li:last-child > .cards-card-body img {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .cards.favourites > ul > li:first-child h2 {
+    font-size: 22px;
+  }
+}
