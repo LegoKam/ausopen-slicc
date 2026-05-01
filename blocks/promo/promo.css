@@ -1,0 +1,201 @@
+/* ============================================================
+   Australian Open  Promo Block
+   AEM Edge Delivery Services
+   ============================================================ */
+
+/* ---- Wrapper --------------------------------------------- */
+.promo-wrapper {
+  width: 100%;
+}
+
+/* ---- Block container ------------------------------------- */
+.promo {
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    #041022 0%,
+    #0a1f3d 35%,
+    #062040 65%,
+    #041022 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative radial glow */
+.promo::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 111, 186, 0.18) 0%,
+    rgba(0, 169, 224, 0.08) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle grid texture */
+.promo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 111, 186, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 111, 186, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Inner row ------------------------------------------- */
+.promo > div {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 64px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (width >= 900px) {
+  .promo > div {
+    padding: 80px 40px;
+  }
+}
+
+/* Inner content wrapper */
+.promo > div > div {
+  max-width: 720px;
+  width: 100%;
+}
+
+/* ---- Heading --------------------------------------------- */
+.promo h2 {
+  margin: 0 0 24px;
+  font-family: var(--heading-font-family);
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ao-white);
+}
+
+/* AO logo-style first-word accent */
+.promo h2 strong {
+  color: var(--ao-blue-light);
+}
+
+/* ---- Feature list ---------------------------------------- */
+.promo ul {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  text-align: left;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (width >= 600px) {
+  .promo ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+  }
+}
+
+.promo ul li {
+  padding: 6px 0 6px 28px;
+  position: relative;
+  font-size: 14px;
+  color: var(--ao-text-muted);
+  line-height: 1.5;
+}
+
+/* Check-mark bullet */
+.promo ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 14px;
+  height: 8px;
+  border-left: 2.5px solid var(--ao-blue-light);
+  border-bottom: 2.5px solid var(--ao-blue-light);
+  transform: rotate(-45deg);
+}
+
+/* ---- CTA buttons ----------------------------------------- */
+.promo p:last-child {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.promo p:last-child a {
+  display: inline-block;
+  padding: 14px 36px;
+  font-family: var(--heading-font-family);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+/* Primary button (Create account) */
+.promo p:last-child a:first-child {
+  background-color: var(--ao-blue);
+  color: var(--ao-white);
+  border-color: var(--ao-blue);
+  box-shadow: 0 4px 16px rgba(0, 111, 186, 0.35);
+}
+
+.promo p:last-child a:first-child:hover {
+  background-color: var(--ao-blue-light);
+  border-color: var(--ao-blue-light);
+  box-shadow: 0 6px 24px rgba(0, 169, 224, 0.45);
+  transform: translateY(-2px);
+  color: var(--ao-white);
+  text-decoration: none;
+}
+
+/* Secondary button (Sign in) */
+.promo p:last-child a:not(:first-child) {
+  background-color: transparent;
+  color: var(--ao-blue-light);
+  border-color: var(--ao-blue-light);
+}
+
+.promo p:last-child a:not(:first-child):hover {
+  background-color: var(--ao-blue-light);
+  color: var(--ao-white);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* ---- Section padding override ---------------------------- */
+.section.promo-container {
+  padding: 0;
+  margin: 0;
+}
