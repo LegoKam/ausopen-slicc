@@ -301,3 +301,160 @@
   font-family: var(--heading-font-family);
   font-weight: 500;
 }
+
+/* ============================================================
+   Video card variant  .cards.video
+   16:9 Brightcove thumbnails with play button overlay
+   ============================================================ */
+
+/* ---- Override the generic img aspect-ratio for video cards - */
+/* Prevent the 2/3 portrait or 3/2 landscape ratio from being applied */
+.cards.video > ul > li:last-child > .cards-card-body img,
+.cards.video > ul > li > .cards-card-body img {
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  display: block;
+}
+
+/* ---- Grid layout ----------------------------------------- */
+.cards.video > ul > li:last-child {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (width >= 900px) {
+  .cards.video > ul > li:last-child {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (width >= 1200px) {
+  .cards.video > ul > li:last-child {
+    gap: 20px;
+  }
+}
+
+/* ---- Card item ------------------------------------------- */
+.cards.video > ul > li:last-child > .cards-card-body {
+  background-color: #0d2137;
+  border: 1px solid #1a3050;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cards.video > ul > li:last-child > .cards-card-body:hover {
+  transform: translateY(-3px);
+  border-color: #006fba;
+  box-shadow: 0 8px 24px rgba(0, 111, 186, 0.3);
+}
+
+/* ---- Thumbnail container (the <p> wrapping the image link) */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture),
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Play button overlay  ::after on the <p> that wraps the image */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture)::after,
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a img)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(0, 111, 186, 0.0) 0%, rgba(10, 22, 40, 0.15) 100%);
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+/* Play button circle */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture)::before,
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a img)::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background-color: rgba(0, 111, 186, 0.82);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 55% center;
+  background-size: 55%;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(a picture)::before,
+.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(a img)::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Bottom gradient over thumbnail */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture) a::after,
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(10, 22, 40, 0.6), transparent);
+  pointer-events: none;
+}
+
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture) a,
+.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) a {
+  display: block;
+  position: relative;
+  line-height: 0;
+}
+
+/* ---- Title heading --------------------------------------- */
+.cards.video > ul > li:last-child > .cards-card-body > h3 {
+  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  padding: 10px 12px 4px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  /* Clamp to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cards.video > ul > li:last-child > .cards-card-body:hover > h3 {
+  color: #00a9e0;
+}
+
+/* ---- Date text ------------------------------------------- */
+.cards.video > ul > li:last-child > .cards-card-body > p:last-child {
+  font-size: 11px;
+  color: #7a9ab5;
+  padding: 2px 12px 12px;
+  margin: 0;
+  margin-top: auto;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-family: var(--body-font-family);
+  font-weight: 400;
+}
