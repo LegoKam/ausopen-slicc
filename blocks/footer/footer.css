@@ -1,239 +1,228 @@
 /* ============================================================
    Australian Open  Footer Block
    AEM Edge Delivery Services
+   footer.js loads /footer and dumps sections into .footer > div
+   Structure: .footer > div > .section * N
    ============================================================ */
 
+/* ---- Outer footer element -------------------------------- */
 footer {
-  background-color: var(--ao-navy-dark);
-  color: var(--ao-text-muted);
-  font-size: var(--body-font-size-xs);
-  font-family: var(--body-font-family);
-  border-top: 1px solid var(--ao-border);
+  background-color: #041022;
+  color: #b0bec5;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  border-top: 1px solid #1a3050;
 }
 
 footer .footer {
-  background-color: var(--ao-navy-dark);
+  background-color: #041022;
 }
 
+/* The footer.js wraps content in a div inside .footer */
 footer .footer > div {
-  margin: auto;
-  max-width: var(--max-width);
-  padding: 48px 24px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 56px 40px 32px;
-  }
+/* Each section from DA becomes a .section inside .footer > div */
+footer .footer .section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 40px 0;
 }
 
-footer .footer p {
-  margin: 0 0 6px;
+footer .footer .section:last-child {
+  padding-bottom: 32px;
 }
 
-/* ---- Partners heading ------------------------------------ */
-.partners > div:first-child h2 {
-  margin: 0 0 24px;
-  font-family: var(--heading-font-family);
+footer .footer .default-content-wrapper {
+  width: 100%;
+}
+
+/* ---- Section 1: Partners --------------------------------- */
+footer .footer .section:nth-child(1) {
+  padding-top: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #1a3050;
+}
+
+footer .footer .section:nth-child(1) h3 {
+  margin: 0 0 20px;
+  font-family: 'Montserrat', sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ao-text-dim);
+  color: #7a9ab5;
 }
 
-/* ---- Partner logos row ----------------------------------- */
-.partners > div:nth-child(2) > div {
+/* Partners links row */
+footer .footer .section:nth-child(1) p {
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 24px 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--ao-border);
-  margin-bottom: 24px;
+  gap: 16px 32px;
 }
 
-.partners > div:nth-child(2) > div a {
-  display: block;
-  opacity: 0.75;
-  transition: opacity 0.2s ease;
-}
-
-.partners > div:nth-child(2) > div a:hover {
-  opacity: 1;
-}
-
-.partners > div:nth-child(2) > div img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-/* "View all" link */
-.partners > div:nth-child(2) > div a:last-child {
-  font-family: var(--heading-font-family);
-  font-size: 12px;
+footer .footer .section:nth-child(1) a:any-link {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ao-blue-light);
+  color: #b0bec5;
   text-decoration: none;
-  border: 1.5px solid var(--ao-blue-light);
-  padding: 6px 16px;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+footer .footer .section:nth-child(1) a:hover {
+  color: #ffffff;
+  border-bottom-color: #006fba;
+  text-decoration: none;
+}
+
+/* "View all partners" link  styled as a button */
+footer .footer .section:nth-child(1) a:last-child {
+  color: #00a9e0;
+  border: 1px solid #00a9e0;
   border-radius: 4px;
-  opacity: 1;
+  padding: 6px 16px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.partners > div:nth-child(2) > div a:last-child:hover {
-  background-color: var(--ao-blue-light);
-  color: var(--ao-white);
-  opacity: 1;
+footer .footer .section:nth-child(1) a:last-child:hover {
+  background-color: #00a9e0;
+  color: #ffffff;
+  border-color: #00a9e0;
+  border-bottom-color: #00a9e0;
 }
 
-/* ---- Organisation logos (AO, Tennis Australia, Visit Melb) */
-.partners > div:nth-child(3) > div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px 32px;
+/* ---- Section 2: Link columns ----------------------------- */
+footer .footer .section:nth-child(2) {
+  padding-top: 40px;
   padding-bottom: 32px;
-  border-bottom: 1px solid var(--ao-border);
-  margin-bottom: 32px;
+  border-bottom: 1px solid #1a3050;
 }
 
-.partners > div:nth-child(3) > div a {
-  display: block;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.partners > div:nth-child(3) > div a:hover {
-  opacity: 1;
-}
-
-.partners > div:nth-child(3) > div img {
-  height: 36px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-/* ---- Footer links block ---------------------------------- */
-.footer-links > div:first-child > div {
+/* The content-wrapper contains 3 ul lists */
+footer .footer .section:nth-child(2) .default-content-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 
 @media (width >= 600px) {
-  .footer-links > div:first-child > div {
-    grid-template-columns: 1fr 1fr;
+  footer .footer .section:nth-child(2) .default-content-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
 }
 
-@media (width >= 900px) {
-  .footer-links > div:first-child > div {
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-}
-
-.footer-links ul {
+/* List styles */
+footer .footer .section:nth-child(2) ul {
   list-style: none;
-  margin: 0 0 24px;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.footer-links ul li a {
-  color: var(--ao-text-muted);
+footer .footer .section:nth-child(2) ul li a:any-link {
+  color: #b0bec5;
   font-size: 13px;
+  font-weight: 400;
   text-decoration: none;
   transition: color 0.15s ease;
-}
-
-.footer-links ul li a:hover {
-  color: var(--ao-white);
-  text-decoration: none;
-}
-
-/* ---- Social icons ---------------------------------------- */
-.footer-links > div:nth-child(2) > div {
-  padding: 24px 0;
-  border-top: 1px solid var(--ao-border);
-}
-
-.footer-links > div:nth-child(2) ul {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.footer-links > div:nth-child(2) ul li {
-  margin: 0;
-}
-
-.footer-links > div:nth-child(2) ul li a {
   display: inline-block;
-  padding: 6px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ao-text-muted);
-  border-right: 1px solid var(--ao-border);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-family: var(--heading-font-family);
+  padding: 2px 0;
 }
 
-.footer-links > div:nth-child(2) ul li:first-child a {
-  padding-left: 0;
-}
-
-.footer-links > div:nth-child(2) ul li:last-child a {
-  border-right: none;
-}
-
-.footer-links > div:nth-child(2) ul li a:hover {
-  color: var(--ao-blue-light);
-}
-
-/* ---- Legal / copyright ----------------------------------- */
-.footer-links > div:nth-child(3) > div {
-  padding: 24px 0 0;
-  border-top: 1px solid var(--ao-border);
-}
-
-.footer-links > div:nth-child(3) p {
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--ao-text-dim);
-  margin: 0 0 8px;
-}
-
-/* ---- Default footer content (boilerplate) ---------------- */
-footer .default-content-wrapper {
-  padding: 32px 0 16px;
-  border-top: 1px solid var(--ao-border);
-}
-
-footer .default-content-wrapper p {
-  font-size: 12px;
-  color: var(--ao-text-dim);
-  margin: 0 0 8px;
-}
-
-footer .default-content-wrapper a {
-  color: var(--ao-text-muted);
+footer .footer .section:nth-child(2) ul li a:hover {
+  color: #ffffff;
   text-decoration: none;
-  transition: color 0.15s ease;
 }
 
-footer .default-content-wrapper a:hover {
-  color: var(--ao-blue-light);
+/* First list  slightly larger/bolder */
+footer .footer .section:nth-child(2) ul:first-child li a {
+  font-weight: 500;
+}
+
+/* Social links (third ul)  larger text, horizontal on wide screens */
+footer .footer .section:nth-child(2) ul:last-child {
+  gap: 12px;
+}
+
+footer .footer .section:nth-child(2) ul:last-child li a {
+  color: #7a9ab5;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+footer .footer .section:nth-child(2) ul:last-child li a:hover {
+  color: #00a9e0;
+}
+
+/* ---- Section 3: Acknowledgement + Copyright -------------- */
+footer .footer .section:nth-child(3) {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+footer .footer .section:nth-child(3) p {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #7a9ab5;
+}
+
+/* Acknowledgement of Country */
+footer .footer .section:nth-child(3) p:first-child {
+  font-style: italic;
+  color: #7a9ab5;
+  max-width: 760px;
+  margin-bottom: 12px;
+}
+
+/* Copyright */
+footer .footer .section:nth-child(3) p:last-child {
+  font-size: 11px;
+  color: #4a6a88;
+  letter-spacing: 0.03em;
+}
+
+/* ---- Boilerplate footer override (fallback) -------------- */
+/* If /footer still returns boilerplate content */
+footer .footer .section .default-content-wrapper > p:only-child {
+  font-size: 12px;
+  color: #7a9ab5;
+  padding: 32px 40px;
+  margin: 0;
+}
+
+footer .footer .default-content-wrapper a:any-link {
+  color: #b0bec5;
+  text-decoration: none;
+}
+
+footer .footer .default-content-wrapper a:hover {
+  color: #00a9e0;
+}
+
+/* ---- Mobile adjustments ---------------------------------- */
+@media (width < 600px) {
+  footer .footer .section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
