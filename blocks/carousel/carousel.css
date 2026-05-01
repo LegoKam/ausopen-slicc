@@ -1,0 +1,192 @@
+/* ============================================================
+   Australian Open  Carousel Block
+   AEM Edge Delivery Services
+   ============================================================ */
+
+/* ---- Wrapper --------------------------------------------- */
+.carousel-wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--ao-navy-dark);
+}
+
+/* ---- Track container ------------------------------------- */
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Each slide row */
+.carousel > div {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+@media (width >= 600px) {
+  .carousel > div {
+    min-height: 520px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel > div {
+    min-height: 600px;
+  }
+}
+
+/* ---- Background image cell (first div child) ------------- */
+.carousel > div > div:first-child {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.carousel > div > div:first-child picture,
+.carousel > div > div:first-child img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Dark gradient overlay for text legibility */
+.carousel > div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(4, 16, 34, 0.88) 0%,
+    rgba(4, 16, 34, 0.65) 45%,
+    rgba(4, 16, 34, 0.15) 100%
+  );
+  pointer-events: none;
+}
+
+/* Bottom gradient for extra depth */
+.carousel > div::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(10, 22, 40, 0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ---- Content cell (second div child) --------------------- */
+.carousel > div > div:last-child {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px 24px;
+  max-width: 600px;
+  align-self: end;
+}
+
+@media (width >= 600px) {
+  .carousel > div > div:last-child {
+    padding: 48px 40px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel > div > div:last-child {
+    padding: 64px 80px;
+    max-width: 680px;
+  }
+}
+
+/* Tagline / eyebrow (first p) */
+.carousel > div > div:last-child > p:first-child:not(.button-container) {
+  margin: 0 0 8px;
+  font-family: var(--heading-font-family);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ao-blue-light);
+}
+
+/* Heading */
+.carousel > div > div:last-child h2 {
+  margin: 0 0 20px;
+  font-family: var(--heading-font-family);
+  font-size: clamp(24px, 4vw, 44px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Body text (any non-button p after h2) */
+.carousel > div > div:last-child p:not(.button-container) + p:not(.button-container) {
+  margin: 0 0 16px;
+  color: var(--ao-text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---- CTA Button ------------------------------------------ */
+.carousel .button-container {
+  margin: 4px 0 0;
+}
+
+.carousel .button-container a.button,
+.carousel .button-container a {
+  display: inline-block;
+  padding: 13px 32px;
+  background-color: var(--ao-blue);
+  color: #ffffff;
+  font-family: var(--heading-font-family);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.carousel .button-container a.button:hover,
+.carousel .button-container a:hover {
+  background-color: var(--ao-blue-light);
+  box-shadow: 0 4px 20px rgba(0, 169, 224, 0.45);
+  transform: translateY(-1px);
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* ---- Show only first slide by default -------------------- */
+/* (EDS carousel JS will handle slides; without JS all show stacked)  */
+/* We display all as a scrollable strip unless JS enhances */
+.carousel > div + div {
+  display: none;
+}
+
+.carousel > div:first-child {
+  display: grid;
+}
+
+/* If JS adds active class */
+.carousel > div.active,
+.carousel > div[aria-hidden="false"] {
+  display: grid;
+}
