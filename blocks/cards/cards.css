@@ -288,3 +288,16 @@
   padding: 0;
   line-height: 1;
 }
+
+/* ---- Date text (replacing <time> which DA escapes) ------- */
+.cards .cards-card-body .date,
+.cards .cards-card-body p.date {
+  font-size: 11px;
+  color: var(--ao-text-dim);
+  padding-top: 4px;
+  padding-bottom: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family);
+  font-weight: 500;
+}
