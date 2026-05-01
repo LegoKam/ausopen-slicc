@@ -1,27 +1,227 @@
+/* ============================================================
+   Australian Open  Cards Block
+   AEM Edge Delivery Services
+   ============================================================ */
+
+/* ---- Section header row (first li  heading + link) ------ */
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
+/* First list item acts as a section header  full width */
+.cards > ul > li:first-child:has(.cards-card-body:only-child) {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0 0 8px;
+  border-bottom: 2px solid var(--ao-border);
+  margin-bottom: 8px;
+}
+
+/* Fallback: if first card has no image and only body */
+.cards > ul > li:first-child .cards-card-body:only-child {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Section title h2 inside header row */
+.cards > ul > li:first-child h2 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 800;
+  color: var(--ao-white);
+  letter-spacing: -0.01em;
+}
+
+/* "See all" / "Read More" link inside header row */
+.cards > ul > li:first-child .button-container a,
+.cards > ul > li:first-child a.button {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: transparent;
+  color: var(--ao-blue-light);
+  font-family: var(--heading-font-family);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--ao-blue-light);
+  border-radius: 4px;
+  margin: 0;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cards > ul > li:first-child .button-container a:hover,
+.cards > ul > li:first-child a.button:hover {
+  background-color: var(--ao-blue-light);
+  color: var(--ao-white);
+  text-decoration: none;
+}
+
+/* ---- Card items ------------------------------------------ */
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  background-color: var(--ao-navy-mid);
+  border: 1px solid var(--ao-border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+.cards > ul > li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 111, 186, 0.25);
+  border-color: var(--ao-blue);
 }
 
+/* ---- Card image ------------------------------------------ */
 .cards .cards-card-image {
   line-height: 0;
+  flex-shrink: 0;
 }
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Player cards use taller portrait ratio */
+.cards > ul > li .cards-card-image:only-child img,
+.cards > ul > li:has(.cards-card-image:only-child) img {
+  aspect-ratio: 3 / 4;
+  object-position: top center;
+}
+
+/* ---- Card body ------------------------------------------- */
+.cards .cards-card-body {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Category tag (first p in body) */
+.cards .cards-card-body > p:first-child {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ao-blue-light);
+}
+
+/* Heading inside card */
+.cards .cards-card-body h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ao-white);
+  letter-spacing: -0.01em;
+}
+
+/* Date / meta */
+.cards .cards-card-body time,
+.cards .cards-card-body p:last-child:not(:first-child) {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 12px;
+  color: var(--ao-text-dim);
+}
+
+/* Full-card link wrapping */
+.cards .cards-card-body a,
+.cards .cards-card-image a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+.cards .cards-card-body a:hover,
+.cards .cards-card-image a:hover {
+  text-decoration: none;
+  color: var(--ao-blue-light);
+}
+
+.cards .cards-card-body a:hover h3 {
+  color: var(--ao-blue-light);
+}
+
+/* Player name under photo */
+.cards .cards-card-image a p,
+.cards .cards-card-image p {
+  margin: 0;
+  padding: 10px 12px;
+  font-family: var(--heading-font-family);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ao-white);
+  text-align: center;
+  background-color: rgba(4, 16, 34, 0.7);
+}
+
+/* ---- Video cards (no image  title only) ----------------- */
+.cards > ul > li:has(h3):not(:has(.cards-card-image)) {
+  background: linear-gradient(135deg, var(--ao-navy-mid) 0%, #0b1d35 100%);
+  border: 1px solid var(--ao-border);
+}
+
+/* Pill category tag for video entries */
+.cards > ul > li:has(h3):not(:has(.cards-card-image)) p:first-child {
+  font-size: 10px;
+  padding: 3px 10px;
+  background-color: var(--ao-blue);
+  border-radius: 20px;
+  display: inline-block;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+/* ---- Responsive grid ------------------------------------- */
+@media (width >= 600px) {
+  .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (width >= 1200px) {
+  .cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
