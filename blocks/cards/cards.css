@@ -1,28 +1,26 @@
 /* ============================================================
-   Australian Open  Cards Block
-   AEM Edge Delivery Services
-   Actual EDS structure:
-     .cards > ul > li:first-child > .cards-card-body   (header)
-     .cards > ul > li:last-child > .cards-card-body*N  (card cells)
+   Australian Open — Cards Block (v2)
+   Targeting ACTUAL EDS DOM structure:
+     .cards > ul > li:first-child > .cards-card-body   (header row)
+     .cards > ul > li:last-child > .cards-card-body    (card cells)
+   Image chain: IMG > PICTURE > A > P > .cards-card-body
    ============================================================ */
 
-/* ---- Reset list ------------------------------------------ */
+/* ── Reset ─────────────────────────────────────────────── */
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* ---- Section header row (first li) ----------------------- */
+/* ── Header row (first li) ─────────────────────────────── */
 .cards > ul > li:first-child {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 0 0 16px;
+  padding-bottom: 16px;
   margin-bottom: 24px;
-  border-bottom: 2px solid var(--ao-border);
+  border-bottom: 2px solid #1a3050;
 }
 
 .cards > ul > li:first-child .cards-card-body {
@@ -30,7 +28,6 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 12px;
   padding: 0;
   margin: 0;
@@ -38,90 +35,91 @@
   border: none;
 }
 
-/* Section heading */
 .cards > ul > li:first-child h2 {
   margin: 0;
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-l);
+  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
+  font-size: 22px;
   font-weight: 800;
-  color: var(--ao-white);
+  color: #ffffff;
   letter-spacing: -0.01em;
-  line-height: 1.2;
 }
 
-/* "See all" / header CTA */
 .cards > ul > li:first-child .button-container a,
 .cards > ul > li:first-child a.button {
   display: inline-block;
-  padding: 8px 20px;
-  background-color: transparent;
-  color: var(--ao-blue-light);
-  font-family: var(--heading-font-family);
-  font-size: 12px;
+  padding: 7px 18px;
+  background: transparent;
+  color: #00a9e0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
-  border: 2px solid var(--ao-blue-light);
+  border: 2px solid #00a9e0;
   border-radius: 4px;
-  margin: 0;
   white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background 0.2s, color 0.2s;
 }
 
 .cards > ul > li:first-child .button-container a:hover,
 .cards > ul > li:first-child a.button:hover {
-  background-color: var(--ao-blue-light);
-  color: var(--ao-white);
-  text-decoration: none;
+  background: #00a9e0;
+  color: #ffffff;
 }
 
-/* ---- Cards row (second li  all cards as sibling divs) --- */
+/* ── Cards grid row (second li) ────────────────────────── */
 .cards > ul > li:last-child {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
 
-@media (width >= 900px) {
+@media (min-width: 900px) {
   .cards > ul > li:last-child {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 }
 
-@media (width >= 1200px) {
-  .cards > ul > li:last-child {
-    gap: 24px;
-  }
-}
-
-/* Individual card cell */
+/* ── Individual card cell ───────────────────────────────── */
 .cards > ul > li:last-child > .cards-card-body {
-  background-color: var(--ao-navy-mid);
-  border: 1px solid var(--ao-border);
+  background: #0d2137;
+  border: 1px solid #1a3050;
   border-radius: 6px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
   margin: 0;
   padding: 0;
 }
 
 .cards > ul > li:last-child > .cards-card-body:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0, 111, 186, 0.25);
-  border-color: var(--ao-blue);
+  border-color: #006fba;
+  box-shadow: 0 8px 24px rgba(0, 111, 186, 0.25);
 }
 
-/* ---- Image inside card ------------------------------------ */
-.cards .cards-card-body picture {
+/* ── Image: P wrapper → A → PICTURE → IMG ──────────────── */
+/* The <p> that wraps the image link */
+.cards > ul > li:last-child > .cards-card-body > p:has(> a > picture),
+.cards > ul > li:last-child > .cards-card-body > p:has(> a > img) {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: hidden;
+  display: block;
+}
+
+/* The <a> wrapping the image */
+.cards > ul > li:last-child > .cards-card-body > p > a {
   display: block;
   line-height: 0;
 }
 
-.cards .cards-card-body img {
+/* The image itself */
+.cards > ul > li:last-child > .cards-card-body img {
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
@@ -129,188 +127,67 @@
   display: block;
 }
 
-/* Portrait images for player cards */
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sabalenka"]),
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Alcaraz"]),
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sinner"]),
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Swiatek"]),
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Djokovic"]),
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Minaur"]) {
-  background: linear-gradient(180deg, #0d2137 0%, #041022 100%);
-}
-
-/* For player blocks  make image taller */
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sabalenka"]) img,
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Alcaraz"]) img,
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Sinner"]) img,
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Swiatek"]) img,
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Djokovic"]) img,
-.cards > ul > li:last-child > .cards-card-body:has(img[alt*="Minaur"]) img {
-  aspect-ratio: 2 / 3;
-}
-
-/* ---- Card text content ----------------------------------- */
-/* All p tags after the picture get padding */
-.cards .cards-card-body > p {
+/* ── Text content ───────────────────────────────────────── */
+.cards > ul > li:last-child > .cards-card-body > p:not(:has(> a > picture)):not(:has(> a > img)) {
   margin: 0;
-  color: var(--ao-text-muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-/* First p that contains a link and image = image wrapper, no padding */
-.cards .cards-card-body > p:has(a picture),
-.cards .cards-card-body > p:has(a img) {
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-}
-
-/* Text content wrapper  any p without image */
-.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)),
-.cards .cards-card-body > h3 {
   padding: 0 14px;
-}
-
-.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)):first-of-type {
-  padding-top: 12px;
-}
-
-.cards .cards-card-body > p:last-child {
-  padding-bottom: 14px;
-  margin-bottom: 0;
-}
-
-/* Category tag */
-.cards .cards-card-body > p:not(:has(a picture)):not(:has(a img)):not(:last-child) {
+  color: #00a9e0;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ao-blue-light);
+}
+
+.cards > ul > li:last-child > .cards-card-body > p:not(:has(> a > picture)):not(:has(> a > img)):first-of-type {
   padding-top: 12px;
-  padding-bottom: 2px;
 }
 
-/* Heading */
-.cards .cards-card-body h3 {
-  margin: 4px 0 8px;
-  font-family: var(--heading-font-family);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--ao-white);
-  letter-spacing: -0.01em;
-  padding-left: 14px;
-  padding-right: 14px;
-}
-
-/* Hover on heading */
-.cards .cards-card-body:hover h3 {
-  color: var(--ao-blue-light);
-}
-
-/* Player name text */
-.cards .cards-card-body > p:last-child:not(:first-child) {
-  font-family: var(--heading-font-family);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ao-white);
-  text-align: center;
-  padding: 10px 12px;
-  background-color: rgba(4, 16, 34, 0.6);
+.cards > ul > li:last-child > .cards-card-body > p:not(:has(> a > picture)):not(:has(> a > img)):last-child {
+  padding-bottom: 14px;
+  color: #7a9ab5;
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: none;
   letter-spacing: 0.02em;
 }
 
-/* Link styling inside cards */
-.cards .cards-card-body a {
+.cards > ul > li:last-child > .cards-card-body > h3 {
+  margin: 4px 0 6px;
+  padding: 0 14px;
+  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
+}
+
+.cards > ul > li:last-child > .cards-card-body:hover > h3 {
+  color: #00a9e0;
+}
+
+.cards > ul > li:last-child > .cards-card-body a {
   color: inherit;
   text-decoration: none;
 }
 
-.cards .cards-card-body a:hover {
-  text-decoration: none;
-  color: var(--ao-blue-light);
-}
-
-/* Picture link  full width */
-.cards .cards-card-body > p > a {
-  display: block;
-  line-height: 0;
-}
-
-/* ---- Video cards (no image, just title) ------------------ */
-.cards > ul > li:last-child > .cards-card-body:not(:has(img)) {
-  background: linear-gradient(135deg, #0d2137 0%, #0a1a2e 100%);
-  border: 1px solid var(--ao-border);
-  padding: 16px;
-  justify-content: flex-start;
-  gap: 8px;
-}
-
-.cards > ul > li:last-child > .cards-card-body:not(:has(img)) h3 {
-  font-size: 13px;
-  padding: 0;
-  margin: 0 0 4px;
-  color: var(--ao-white);
-}
-
-.cards > ul > li:last-child > .cards-card-body:not(:has(img)) p {
-  padding: 0;
-  color: var(--ao-text-dim);
-  font-size: 12px;
-}
-
-.cards > ul > li:last-child > .cards-card-body:not(:has(img)) a {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px;
-  margin: -16px;
-  height: 100%;
-  color: var(--ao-white);
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  border-radius: 6px;
-}
-
-.cards > ul > li:last-child > .cards-card-body:not(:has(img)) a:hover {
-  background-color: rgba(0, 111, 186, 0.12);
-}
-
-/* Video play indicator */
-.cards > ul > li:last-child > .cards-card-body:not(:has(img))::before {
-  content: '�';
-  display: block;
-  font-size: 20px;
-  color: var(--ao-blue-light);
-  margin-bottom: 8px;
-  padding: 0;
-  line-height: 1;
-}
-
-/* ---- Date text (replacing <time> which DA escapes) ------- */
-.cards .cards-card-body .date,
-.cards .cards-card-body p.date {
-  font-size: 11px;
-  color: var(--ao-text-dim);
-  padding-top: 4px;
-  padding-bottom: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-family: var(--heading-font-family);
-  font-weight: 500;
-}
-
 /* ============================================================
-   Video card variant  .cards.video
-   16:9 Brightcove thumbnails with play button overlay
+   Video variant  .cards.video
    ============================================================ */
 
-/* ---- Override the generic img aspect-ratio for video cards - */
-/* Prevent the 2/3 portrait or 3/2 landscape ratio from being applied */
-.cards.video > ul > li:last-child > .cards-card-body img,
-.cards.video > ul > li > .cards-card-body img {
+.cards.video > ul > li:last-child {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .cards.video > ul > li:last-child {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Video card: 16:9 thumbnails */
+.cards.video > ul > li:last-child > .cards-card-body img {
   aspect-ratio: 16 / 9 !important;
   object-fit: cover;
   object-position: center center;
@@ -318,68 +195,28 @@
   display: block;
 }
 
-/* ---- Grid layout ----------------------------------------- */
-.cards.video > ul > li:last-child {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-@media (width >= 900px) {
-  .cards.video > ul > li:last-child {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
-
-@media (width >= 1200px) {
-  .cards.video > ul > li:last-child {
-    gap: 20px;
-  }
-}
-
-/* ---- Card item ------------------------------------------- */
-.cards.video > ul > li:last-child > .cards-card-body {
-  background-color: #0d2137;
-  border: 1px solid #1a3050;
-  border-radius: 4px;
-  overflow: hidden;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cards.video > ul > li:last-child > .cards-card-body:hover {
-  transform: translateY(-3px);
-  border-color: #006fba;
-  box-shadow: 0 8px 24px rgba(0, 111, 186, 0.3);
-}
-
-/* ---- Thumbnail container (the <p> wrapping the image link) */
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture),
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) {
+/* Image wrapper for play overlay */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(> a > picture),
+.cards.video > ul > li:last-child > .cards-card-body > p:has(> a > img) {
   position: relative;
-  overflow: hidden;
-  line-height: 0;
-  margin: 0;
-  padding: 0;
 }
 
-/* Play button overlay  ::after on the <p> that wraps the image */
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture)::after,
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a img)::after {
+/* Bottom gradient */
+.cards.video > ul > li:last-child > .cards-card-body > p:has(> a > picture)::after,
+.cards.video > ul > li:last-child > .cards-card-body > p:has(> a > img)::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at center, rgba(0, 111, 186, 0.0) 0%, rgba(10, 22, 40, 0.15) 100%);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(10,22,40,0.6), transparent);
   pointer-events: none;
-  transition: background 0.2s ease;
 }
 
-/* Play button circle */
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture)::before,
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a img)::before {
+/* Play button on hover */
+.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(> a > picture)::before,
+.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(> a > img)::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -387,281 +224,172 @@
   transform: translate(-50%, -50%);
   width: 44px;
   height: 44px;
-  background-color: rgba(0, 111, 186, 0.82);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 55% center;
-  background-size: 55%;
+  background: rgba(0, 111, 186, 0.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") no-repeat 57% center / 50%;
   border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
   z-index: 2;
-}
-
-.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(a picture)::before,
-.cards.video > ul > li:last-child > .cards-card-body:hover > p:has(a img)::before {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-/* Bottom gradient over thumbnail */
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture) a::after,
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 35%;
-  background: linear-gradient(to top, rgba(10, 22, 40, 0.6), transparent);
   pointer-events: none;
 }
 
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a picture) a,
-.cards.video > ul > li:last-child > .cards-card-body > p:has(a img) a {
-  display: block;
-  position: relative;
-  line-height: 0;
-}
-
-/* ---- Title heading --------------------------------------- */
 .cards.video > ul > li:last-child > .cards-card-body > h3 {
-  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-  padding: 10px 12px 4px;
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  /* Clamp to 2 lines */
-  display: -webkit-box;
+  font-size: 12px;
+  padding: 8px 12px 4px;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  display: -webkit-box;
   overflow: hidden;
 }
 
-.cards.video > ul > li:last-child > .cards-card-body:hover > h3 {
-  color: #00a9e0;
-}
-
-/* ---- Date text ------------------------------------------- */
 .cards.video > ul > li:last-child > .cards-card-body > p:last-child {
   font-size: 11px;
   color: #7a9ab5;
-  padding: 2px 12px 12px;
-  margin: 0;
-  margin-top: auto;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  font-family: var(--body-font-family);
+  padding: 2px 12px 10px;
   font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 /* ============================================================
-   Your Favourites  horizontal scrollable player carousel
-   .cards.favourites variant
+   Favourites variant  .cards.favourites
    ============================================================ */
 
-/* ---- Section wrapper ------------------------------------- */
 .cards.favourites {
-  background-color: #0d2137;
+  background: #0d2137;
   padding: 36px 48px 40px;
-  position: relative;
 }
 
-/* Override the default section padding/bg */
-.section.cards-container:has(.cards.favourites) {
-  background-color: #0d2137 !important;
-  padding: 0 !important;
-}
-
-/* ---- Section header row (first li  h2 + All players link) */
+/* Header row */
 .cards.favourites > ul > li:first-child {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 0 0 24px;
-  margin-bottom: 0;
   border-bottom: none;
-  background: none;
-  border: none;
-}
-
-.cards.favourites > ul > li:first-child .cards-card-body {
-  width: 100%;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 0;
-  margin: 0;
-  background: none;
-  border: none;
-  border-radius: 0;
+  margin-bottom: 0;
+  padding-bottom: 24px;
 }
 
 .cards.favourites > ul > li:first-child h2 {
-  font-family: 'Montserrat', var(--heading-font-family), sans-serif;
   font-size: 26px;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
 }
 
 .cards.favourites > ul > li:first-child .button-container a,
 .cards.favourites > ul > li:first-child a.button {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
   color: #f5a623 !important;
-  text-decoration: underline !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  background-color: transparent !important;
   border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  transform: none !important;
-  white-space: nowrap;
-}
-
-.cards.favourites > ul > li:first-child .button-container a:hover,
-.cards.favourites > ul > li:first-child a.button:hover {
-  color: #e09416 !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-  transform: none !important;
+  background: none !important;
+  text-transform: none !important;
   text-decoration: underline !important;
+  letter-spacing: 0 !important;
+  font-size: 14px !important;
+  padding: 0 !important;
 }
 
-/* ---- Scrollable player row (second li) ------------------- */
-/* Override the default grid with horizontal scroll */
+/* Horizontal scroll row */
 .cards.favourites > ul > li:last-child {
   display: flex !important;
   flex-direction: row !important;
+  grid-template-columns: none !important;
   flex-wrap: nowrap !important;
-  gap: 28px;
+  gap: 24px;
   overflow-x: auto;
+  overflow-y: visible;
   scroll-behavior: smooth;
-  padding: 8px 4px 16px;
+  padding: 8px 0 16px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* Override the default grid-template-columns */
-  grid-template-columns: none !important;
 }
 
 .cards.favourites > ul > li:last-child::-webkit-scrollbar {
   display: none;
 }
 
-/* ---- Individual player card ------------------------------ */
+/* Each player card */
 .cards.favourites > ul > li:last-child > .cards-card-body {
-  flex: 0 0 140px;
+  flex: 0 0 160px;
+  width: 160px;
   background: none !important;
   border: none !important;
-  border-radius: 0 !important;
   box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 !important;
-  margin: 0 !important;
-  overflow: visible !important;
-  transition: none !important;
+  transform: none !important;
+  transition: transform 0.2s !important;
   cursor: pointer;
 }
 
 .cards.favourites > ul > li:last-child > .cards-card-body:hover {
-  transform: translateY(-4px);
-  box-shadow: none !important;
+  transform: translateY(-4px) !important;
   border-color: transparent !important;
+  box-shadow: none !important;
 }
 
-/* ---- The player image link ------------------------------- */
-/* The image is wrapped: .cards-card-body > p > a > picture > img */
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture),
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) {
-  position: relative;
-  width: 130px;
-  height: 130px;
-  flex-shrink: 0;
-  padding: 0 !important;
+/* ── THE FIX: <p> > <a> wrapping the player image ──────── */
+/* Override the generic card image <p> */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > picture),
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > img) {
   margin: 0 !important;
+  padding: 0 !important;
+  width: 160px;
+  height: 160px;
+  position: relative;
+  flex-shrink: 0;
+  line-height: 0;
 }
 
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture) a,
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) a {
+/* The anchor must form the circle */
+.cards.favourites > ul > li:last-child > .cards-card-body > p > a {
   display: block !important;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid rgba(255, 255, 255, 0.18);
-  transition: border-color 0.2s ease;
-  line-height: 0;
-  background-color: transparent !important;
+  width: 160px !important;
+  height: 160px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  border: 3px solid rgba(255, 255, 255, 0.2) !important;
+  background: none !important;
   padding: 0 !important;
   margin: 0 !important;
   box-shadow: none !important;
-  transform: none !important;
+  transition: border-color 0.2s !important;
+  line-height: 0 !important;
 }
 
-.cards.favourites > ul > li:last-child > .cards-card-body:hover > p:has(a picture) a,
-.cards.favourites > ul > li:last-child > .cards-card-body:hover > p:has(a img) a {
-  border-color: #006fba;
+.cards.favourites > ul > li:last-child > .cards-card-body:hover > p > a {
+  border-color: #006fba !important;
 }
 
-/* ---- Player image ---------------------------------------- */
+/* The image fills the circle */
 .cards.favourites > ul > li:last-child > .cards-card-body img {
-  width: 130px !important;
-  height: 130px !important;
+  width: 160px !important;
+  height: 160px !important;
   aspect-ratio: 1 / 1 !important;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 50%;
-  display: block;
+  object-fit: cover !important;
+  object-position: top center !important;
+  border-radius: 50% !important;
+  display: block !important;
 }
 
-/* ---- Star icon  positioned on photo, bottom-right ------- */
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture)::after,
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img)::after {
-  content: '';
+/* Star badge on the circle */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > picture)::after,
+.cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > img)::after {
+  content: '☆';
   position: absolute;
-  bottom: 4px;
-  right: 0px;
+  bottom: 6px;
+  right: 2px;
   width: 28px;
   height: 28px;
-  background-color: rgba(13, 33, 55, 0.88);
+  background: rgba(13, 33, 55, 0.88);
   border: 1.5px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 13px;
   color: #ffffff;
   line-height: 28px;
   text-align: center;
-  cursor: pointer;
+  display: block;
   z-index: 2;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  pointer-events: none;
 }
 
-.cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture):hover::after {
-  background-color: rgba(0, 111, 186, 0.9);
-  border-color: rgba(255, 255, 255, 0.7);
-}
-
-/* ---- Player name text ------------------------------------ */
-.cards.favourites > ul > li:last-child > .cards-card-body > p:not(:has(a picture)):not(:has(a img)) {
+/* Player name text */
+.cards.favourites > ul > li:last-child > .cards-card-body > p:not(:has(> a > picture)):not(:has(> a > img)) {
   margin: 10px 0 0 !important;
   padding: 0 !important;
   font-family: 'Montserrat', var(--heading-font-family), sans-serif;
@@ -671,60 +399,36 @@
   text-align: center;
   line-height: 1.4;
   width: 100%;
-  background-color: transparent !important;
+  background: none !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
 }
 
-/* ---- Scroll arrows (decorative, CSS-only) ---------------- */
-.cards.favourites {
-  /* Reserve space for arrows by padding */
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-/* Left arrow */
-.cards.favourites > ul::before {
-  content: '';
-  display: block;
-  position: sticky;
-  left: 0;
-  width: 0;
-  height: 0;
-  flex-shrink: 0;
-  z-index: 5;
-}
-
-/* ---- Mobile ------------------------------------------ */
 @media (max-width: 767px) {
   .cards.favourites {
     padding: 24px 16px 28px;
   }
 
-  .cards.favourites > ul > li:last-child {
-    gap: 20px;
-  }
-
   .cards.favourites > ul > li:last-child > .cards-card-body {
-    flex: 0 0 110px;
+    flex: 0 0 120px;
+    width: 120px;
   }
 
-  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture),
-  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) {
-    width: 110px;
-    height: 110px;
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > picture),
+  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(> a > img) {
+    width: 120px;
+    height: 120px;
   }
 
-  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a picture) a,
-  .cards.favourites > ul > li:last-child > .cards-card-body > p:has(a img) a {
-    width: 110px;
-    height: 110px;
+  .cards.favourites > ul > li:last-child > .cards-card-body > p > a {
+    width: 120px !important;
+    height: 120px !important;
   }
 
   .cards.favourites > ul > li:last-child > .cards-card-body img {
-    width: 110px !important;
-    height: 110px !important;
+    width: 120px !important;
+    height: 120px !important;
   }
 
-  .cards.favourites > ul > li:first-child h2 {
-    font-size: 22px;
-  }
+  .cards.video > ul { grid-template-columns: 1fr 1fr; }
 }
