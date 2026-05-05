@@ -1,67 +1,95 @@
-function updateSlide(block, index) {
+function goToSlide(block, index) {
   const slides = block.querySelectorAll('.carousel-slide');
   const dots = block.querySelectorAll('.carousel-dot');
-  slides.forEach((s, i) => s.classList.toggle('active', i === index));
-  dots.forEach((d, i) => d.classList.toggle('active', i === index));
-  block.dataset.current = index;
+  const total = slides.length;
+  const i = (index + total) % total;
+  slides.forEach((s, idx) => {
+    s.classList.toggle('active', idx === i);
+  });
+  dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+  block.dataset.current = i;
 }
 
 export default function decorate(block) {
+  // Each direct child div is a slide
   const rows = [...block.children];
-  block.innerHTML = '';
 
-  // Slides wrapper
-  const slidesWrapper = document.createElement('div');
-  slidesWrapper.className = 'carousel-slides';
-
-  rows.forEach((row, i) => {
+  // Build slide elements
+  const slides = rows.map((row, i) => {
     const slide = document.createElement('div');
-    slide.className = 'carousel-slide';
-    if (i === 0) slide.classList.add('active');
-    slide.append(...row.children);
-    slidesWrapper.append(slide);
+    slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+
+    const imgDiv = row.children[0];
+    const textDiv = row.children[1];
+
+    // Image layer
+    if (imgDiv) {
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'carousel-image';
+      imgWrapper.append(...imgDiv.childNodes);
+      slide.append(imgWrapper);
+    }
+
+    // Text layer
+    if (textDiv) {
+      const textWrapper = document.createElement('div');
+      textWrapper.className = 'carousel-text';
+      textWrapper.append(...textDiv.childNodes);
+      slide.append(textWrapper);
+    }
+
+    return slide;
   });
 
-  // Prev/Next buttons
-  const prev = document.createElement('button');
-  prev.className = 'carousel-prev';
-  prev.setAttribute('aria-label', 'Previous');
-  prev.innerHTML = '&#8249;';
+  // Slides container
+  const slidesContainer = document.createElement('div');
+  slidesContainer.className = 'carousel-slides-container';
+  slidesContainer.append(...slides);
 
+  // Prev button
+  const prev = document.createElement('button');
+  prev.className = 'carousel-btn carousel-prev';
+  prev.setAttribute('aria-label', 'Previous slide');
+  prev.innerHTML = '&#8249;';
+  prev.addEventListener('click', () => {
+    goToSlide(block, parseInt(block.dataset.current, 10) - 1);
+  });
+
+  // Next button
   const next = document.createElement('button');
-  next.className = 'carousel-next';
-  next.setAttribute('aria-label', 'Next');
+  next.className = 'carousel-btn carousel-next';
+  next.setAttribute('aria-label', 'Next slide');
   next.innerHTML = '&#8250;';
+  next.addEventListener('click', () => {
+    goToSlide(block, parseInt(block.dataset.current, 10) + 1);
+  });
 
   // Dots
-  const dotsWrapper = document.createElement('div');
-  dotsWrapper.className = 'carousel-dots';
-  rows.forEach((_, i) => {
+  const dotsContainer = document.createElement('div');
+  dotsContainer.className = 'carousel-dots';
+  slides.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', `Slide ${i + 1}`);
-    dot.addEventListener('click', () => updateSlide(block, i));
-    dotsWrapper.append(dot);
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    dot.addEventListener('click', () => goToSlide(block, i));
+    dotsContainer.append(dot);
   });
 
+  // Assemble
+  block.innerHTML = '';
   block.dataset.current = 0;
+  block.append(prev, slidesContainer, next, dotsContainer);
 
-  prev.addEventListener('click', () => {
-    const current = parseInt(block.dataset.current, 10);
-    const total = rows.length;
-    updateSlide(block, (current - 1 + total) % total);
-  });
-
-  next.addEventListener('click', () => {
-    const current = parseInt(block.dataset.current, 10);
-    updateSlide(block, (current + 1) % rows.length);
-  });
-
-  block.append(prev, slidesWrapper, next, dotsWrapper);
-
-  // Auto-advance every 5s
-  setInterval(() => {
-    const current = parseInt(block.dataset.current, 10);
-    updateSlide(block, (current + 1) % rows.length);
+  // Auto-advance
+  let timer = setInterval(() => {
+    goToSlide(block, parseInt(block.dataset.current, 10) + 1);
   }, 5000);
+
+  // Pause on hover
+  block.addEventListener('mouseenter', () => clearInterval(timer));
+  block.addEventListener('mouseleave', () => {
+    timer = setInterval(() => {
+      goToSlide(block, parseInt(block.dataset.current, 10) + 1);
+    }, 5000);
+  });
 }
