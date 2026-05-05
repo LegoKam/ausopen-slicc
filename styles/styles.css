@@ -205,7 +205,7 @@ button:focus {
   background-color: var(--ao-blue-light);
   box-shadow: 0 4px 16px rgba(0, 111, 186, 0.4);
   transform: translateY(-1px);
-  color: var(--ao-white);
+  /* color: var(--ao-white); */
   text-decoration: none;
 }
 
